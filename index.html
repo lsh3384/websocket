@@ -22,7 +22,7 @@
 	};
 	
 	webSocket.onmessage = function (event) {
-		console.log("data from server web socket ${event.data}");
+		console.log(`data from server web socket ${event.data}`);
 	}
 	
 	webSocket.onclose = function() {
@@ -36,7 +36,7 @@
 	let count = 1;
 	document.getElementById("btn_send").onclick = function() {
 		if(webSocket.readyState === webSocket.OPEN){
-			webSocket.send("sending count => ${count}");
+			webSocket.send(`sending count => ${count}`);
 			count++;
 		} else{
 			alert("there's not any connected web socket server");
