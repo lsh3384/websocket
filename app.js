@@ -24,19 +24,19 @@ const webSocketServer = new wsModule.Server(
 webSocketServer.on('connection', (ws, request)=>{
 	const ip = request.headers['x-forwarded-for'] || request.connection.remoteAddress;
 	
-	console.log('new client[{$ip}] welcome from server');
+	console.log(`new client[${ip}] welcome from server`);
 	
 	ws.on('message', (msg)=>{
-		console.log('message from client[{$ip}] is : {$msg}');
+		console.log(`message from client[${ip}] is : ${msg}`);
 		ws.send('message received from server');
 	})
 	
 	ws.on('error', (error)=>{
-		console.log('client[{$ip}] connection error occured : {$error}');
+		console.log(`client[${ip}] connection error occured : ${error}`);
 	})
 	
 	ws.on('close', ()=>{
-		console.log('client[{$ip}] web socket closed');	
+		console.log(`client[${ip}] web socket closed`);	
 	})
 	
 });
