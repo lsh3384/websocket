@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>web socket</title>
+</head>
+
+<body>
+	<h1>web socket test</h1>
+
+	<button id="btn_send">send message</button>
+	<button id="btn_close">close connection</button>
+</body>
+
+<script>
+	const webSocket = new WebSocket("ws://localhost:8080/foo");
+
+	webSocket.onopen = ()=>{
+		console.log("connection success");
+	};
+
+	webSocket.onmessage = function (event) {
+		console.log(`data from server web socket ${event.data}`);
+	}
+
+	webSocket.onclose = function() {
+		console.log("connection closed");
+	}
+
+	webSocket.onerror = function(event){
+		console.log(event);
+	}
+
+	let count = 1;
+	document.getElementById("btn_send").onclick = function() {
+		if(webSocket.readyState === webSocket.OPEN){
+			webSocket.send(`sending count => ${count}`);
+			count++;
+		} else{
+			alert("there's not any connected web socket server");
+		}
+	}
+
+	document.getElementById("btn_close").onclick = function(){
+		if(webSocket.readyState === webSocket.CLOSE){
+			webSocket.close();
+		}else{
+			alert("there's not any connected web socket server");
+		}
+	}
+</script>
+</html>
